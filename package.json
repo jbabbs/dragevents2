@@ -1,0 +1,25 @@
+{
+  "name": "dragevents2",
+  "version": "1.0.0",
+  "description": "Better handling of the dragenter and dragleave events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbabbs/dragevents2.git"
+  },
+  "keywords": [
+    "mouseenter",
+    "mouseexit",
+    "dragenter",
+    "dragexit"
+  ],
+  "author": "Justin Babbs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jbabbs/dragevents2/issues"
+  },
+  "homepage": "https://github.com/jbabbs/dragevents2#readme"
+}
