@@ -10,7 +10,7 @@ They are improved version of the dragenter and dragleave events, which behave mo
 
 This is a pure javascript module and it is browserify compatible.
 
-## Demo
+## [Demo](https://jbabbs.github.io/dragevents2)
 
 ## Usage
 
