@@ -14,7 +14,7 @@
   }
 
   var targetEnter = function(e) {
-    if (e.target !== this.target || this.alreadyEntered) {
+    if (this.alreadyEntered) {
       this.disableLeave = true;
       return;
     }
@@ -44,7 +44,7 @@
 
   function bindEvents() {
     this.target.addEventListener('dragenter', targetEnter.bind(this), true);
-    this.target.addEventListener('dragleave', targetLeave.bind(this), true);
+    this.target.addEventListener('dragleave', targetLeave.bind(this), false);
     this.target.addEventListener('drop', targetDrop.bind(this), true);
   }
 

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>dragevents2 demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
+    <style>
+        #old-a, #new-a {
+            background-color: red;
+        }
+        #old-b, #new-b {
+            background-color: blue;
+        }
+        #old-c, #new-c {
+            background-color: green;
+        }
+        .drag-zone {
+            padding: 30px 30px 30px 0;
+        }
+        .center-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+        .center-text {
+            text-align: center;
+        }
+        .left-text {
+            text-align: left;
+        }
+        .row-height {
+            height: 240px;
+        }
+        .row {
+            margin-bottom: 40px;
+        }
+    </style>
+    <script src="index.js"></script>
+    <script>
+        window.onload = function() {
+            var MAX_LINES = 30;
+            var oldA = document.getElementById('old-a');
+            var oldB = document.getElementById('old-b');
+            var oldC = document.getElementById('old-c');
+            var newA = document.getElementById('new-a');
+            var newB = document.getElementById('new-b');
+            var newC = document.getElementById('new-c');
+            var oldOutput = document.getElementById('old-output');
+            var newOutput = document.getElementById('new-output');
+            new DragEvents2(newA);
+            new DragEvents2(newB);
+            new DragEvents2(newC);
+            oldA.addEventListener('dragenter', oldEnterEvent, true);
+            oldA.addEventListener('dragleave', oldLeaveEvent, false);
+            oldB.addEventListener('dragenter', oldEnterEvent, true);
+            oldB.addEventListener('dragleave', oldLeaveEvent, false);
+            oldC.addEventListener('dragenter', oldEnterEvent, true);
+            oldC.addEventListener('dragleave', oldLeaveEvent, false);
+            newA.addEventListener('dragenter2', newEnterEvent);
+            newA.addEventListener('dragleave2', newLeaveEvent);
+            newB.addEventListener('dragenter2', newEnterEvent);
+            newB.addEventListener('dragleave2', newLeaveEvent);
+            newC.addEventListener('dragenter2', newEnterEvent);
+            newC.addEventListener('dragleave2', newLeaveEvent);
+            function oldEnterEvent(e) {
+                console.log('e');
+                var line = "enter: "+ this.getAttribute('id').substr(-1, 1).toUpperCase();
+                pushOutputLine(line, oldOutput);
+            }
+            function oldLeaveEvent(e) {
+                var line = "leave: "+ this.getAttribute('id').substr(-1, 1).toUpperCase();
+                pushOutputLine(line, oldOutput);
+            }
+            function newEnterEvent(e) {
+                var line = "enter: "+ this.getAttribute('id').substr(-1, 1).toUpperCase();
+                pushOutputLine(line, newOutput);
+            }
+            function newLeaveEvent(e) {
+                var line = "leave: "+ this.getAttribute('id').substr(-1, 1).toUpperCase();
+                pushOutputLine(line, newOutput);
+            }
+            function pushOutputLine(line, element) {
+                var lines = element.innerHTML.split(/\n/);
+                lines.unshift(line);
+                if (lines.length >= MAX_LINES) {
+                    lines.pop();
+                }
+                element.innerHTML = lines.join("\n");
+            }
+            document.getElementById('clear-old').addEventListener('click', function(e) {
+                oldOutput.innerHTML = "";
+            });
+            document.getElementById('clear-new').addEventListener('click', function(e) {
+                newOutput.innerHTML = "";
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="title" class="row center-text">
+            <h1>dragevents2<small>  Improved dragenter and dragexit events</small></h1>
+        </div>
+        <div class="row">
+            <h3>Features:</h3>
+            <ul>
+                <li>Pure javascript, no jQuery required</li>
+                <li>Allows nesting of event listeners</li>
+                <li>Intuitive:
+                    <ul>
+                        <li>If the dragged object enters an inner listener, the outer listener always fires before the inner listener</li>
+                        <li>If the dragged object leaves an inner listener, the inner listener always fires before the outer listener</li>
+                    </ul>
+                </li>
+                <li>Events always propogate. Dragevents2 will not interfere with most other events.</li>
+            </ul>
+        </div>
+        <div class="row">
+            <h3>Demo: 3 nested div&apos;s</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-2 center-content row-height">
+                <button class="btn btn-lg" draggable="true">Drag Me</button>
+                <button class="btn btn-lg" id="clear-new">Clear Output</button>
+            </div>
+            <div class="col-md-5">
+                <div id="new-a" class="drag-zone">A
+                    <div id="new-b" class="drag-zone">B
+                        <div id="new-c" class="drag-zone">C</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 left-text">
+            <pre id="new-output" class="row-height left-text">
+&lt;events&gt;
+            </pre>
+            </div>
+        </div>
+        <div class="row">
+            <h3>Classic dragenter and dragleave</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-2 center-content row-height">
+                <button class="btn btn-lg" draggable="true">Drag Me</button>
+                <button class="btn btn-lg" id="clear-old">Clear Output</button>
+            </div>
+            <div class="col-md-5">
+                <div id="old-a" class="drag-zone">A
+                    <div id="old-b" class="drag-zone">B
+                        <div id="old-c" class="drag-zone">C</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 left-text">
+                <pre id='old-output' class="row-height left-text">
+&lt;events&gt;
+                </pre>
+            </div>
+        </div>
+        <div class="row">
+            <h3>Undesired behavior with classic dragenter and dragleave, fixed by dragevents2</h3>
+            <ul>
+                <li>If you enter B through A, A is exited.</li>
+                <li>If you enter A through B, A is entered again.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

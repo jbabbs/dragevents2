@@ -12,9 +12,9 @@
   },
   "keywords": [
     "mouseenter",
-    "mouseexit",
+    "mouseleave",
     "dragenter",
-    "dragexit"
+    "dragleave"
   ],
   "author": "Justin Babbs",
   "license": "ISC",
