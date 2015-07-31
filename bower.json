@@ -1,0 +1,28 @@
+{
+  "name": "dragevents2",
+  "main": "index.js",
+  "version": "1.0.1",
+  "homepage": "https://github.com/jbabbs/dragevents2",
+  "authors": [
+    "Justin Babbs <justin.babbs@gmail.com>"
+  ],
+  "description": "improved dragenter and dragleave events",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "mouseenter",
+    "mouseleave",
+    "dragenter",
+    "dragleave"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
