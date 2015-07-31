@@ -10,12 +10,13 @@ They are improved version of the dragenter and dragleave events, which behave mo
 
 This is a pure javascript module and it is browserify compatible.
 
-## [Demo](https://jbabbs.github.io/dragevents2)
+## Demo 
+[link](https://jbabbs.github.io/dragevents2)
 
 ## Usage
 
 ```javascript
-var de2 = new (elem);
+var de2 = new dragevents2(elem);
 elem.addEventListener('dragenter2', function() {...});
 elem.addEventListener('dragleave2', function() {...});
 // if you wish to unbind the events
