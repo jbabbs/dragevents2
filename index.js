@@ -13,13 +13,22 @@
     window['DragEvents2'] = DragEvents2;
   }
 
+  function CustomEvent ( event, params ) {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent( 'CustomEvent' );
+    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    return evt;
+  }
+
+  CustomEvent.prototype = window.Event.prototype;
+
   var targetEnter = function(e) {
     if (this.alreadyEntered) {
       this.disableLeave = true;
       return;
     }
     this.alreadyEntered = true;
-    this.target.dispatchEvent(new Event('dragenter2'));
+    this.target.dispatchEvent(new CustomEvent('dragenter2'));
   };
 
   var targetLeave = function(e) {
@@ -28,7 +37,7 @@
       return;
     }
     this.alreadyEntered = false;
-    this.target.dispatchEvent(new Event('dragleave2'));
+    this.target.dispatchEvent(new CustomEvent('dragleave2'));
   };
 
   var targetDrop = function(e) {
